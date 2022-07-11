@@ -99,45 +99,45 @@ function init() {
                 }
 
                 let obj_lib = config.lib[idx];
-                setTimeout(runLib, 1000 + parseInt(Math.random() * 10), JSON.parse(JSON.stringify(obj_lib)));
+                // setTimeout(runLib, 1000 + parseInt(Math.random() * 10), JSON.parse(JSON.stringify(obj_lib)));
             }
         }
     }
 }
 
-function runLib(obj_lib) {
-    try {
-        let scripts_arr = obj_lib.scripts.split(' ');
-        if (config.directory_name == '') {
-
-        } else {
-            scripts_arr[0] = scripts_arr[0].replace('./', '');
-            scripts_arr[0] = './' + scripts_arr[0];
-        }
-
-        let run_lib = spawn(scripts_arr[0], scripts_arr.slice(1));
-
-        run_lib.stdout.on('data', function (data) {
-            console.log('stdout: ' + data);
-        });
-
-        run_lib.stderr.on('data', function (data) {
-            console.log('stderr: ' + data);
-        });
-
-        run_lib.on('exit', function (code) {
-            console.log('exit: ' + code);
-
-            setTimeout(runLib, 3000, obj_lib)
-        });
-
-        run_lib.on('error', function (code) {
-            console.log('error: ' + code);
-        });
-    } catch (e) {
-        console.log(e.message);
-    }
-}
+// function runLib(obj_lib) {
+//     try {
+//         let scripts_arr = obj_lib.scripts.split(' ');
+//         if (config.directory_name == '') {
+//
+//         } else {
+//             scripts_arr[0] = scripts_arr[0].replace('./', '');
+//             scripts_arr[0] = './' + scripts_arr[0];
+//         }
+//
+//         let run_lib = spawn(scripts_arr[0], scripts_arr.slice(1));
+//
+//         run_lib.stdout.on('data', function (data) {
+//             console.log('stdout: ' + data);
+//         });
+//
+//         run_lib.stderr.on('data', function (data) {
+//             console.log('stderr: ' + data);
+//         });
+//
+//         run_lib.on('exit', function (code) {
+//             console.log('exit: ' + code);
+//
+//             setTimeout(runLib, 3000, obj_lib)
+//         });
+//
+//         run_lib.on('error', function (code) {
+//             console.log('error: ' + code);
+//         });
+//     } catch (e) {
+//         console.log(e.message);
+//     }
+// }
 
 let msw_mqtt_client = null;
 
@@ -372,11 +372,11 @@ function gen_LTEData(topic, rsrp, rsrq, rssi) {
         esm_cause: "0"
     })
     setTimeout(on_receive_from_lib, 100, topic, LteSimulData)
-    setTimeout(gen_LTEData, 1000, '/MUV/data/lib_lgu_lte/LTE', -(Math.floor(Math.random() * (140 - 44 + 1)) + 44),
+    setTimeout(gen_LTEData, 1000, '/MUV/data/lib_lte_simul/LTE', -(Math.floor(Math.random() * (140 - 44 + 1)) + 44),
         -(Math.floor(Math.random() * (99 - 35 + 1)) + 35),
         -(Math.floor(Math.random() * (19.5 - 3 + 1)) + 3))
 }
 
-setTimeout(gen_LTEData, 1000, '/MUV/data/lib_lgu_lte/LTE', -(Math.floor(Math.random() * (140 - 44 + 1)) + 44),
+setTimeout(gen_LTEData, 1000, '/MUV/data/lib_lte_simul/LTE', -(Math.floor(Math.random() * (140 - 44 + 1)) + 44),
     -(Math.floor(Math.random() * (99 - 35 + 1)) + 35),
     -(Math.floor(Math.random() * (19.5 - 3 + 1)) + 3))
