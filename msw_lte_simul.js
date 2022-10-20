@@ -32,7 +32,7 @@ global.drone_info = '';
 let lte_data = db('./' + config.name + '_data' + '.json');
 
 try {
-    drone_info = JSON.parse(fs.readFileSync('./drone_info.json', 'utf8'));
+    drone_info = JSON.parse(fs.readFileSync('../drone_info.json', 'utf8'));
 
     config.directory_name = config.name + '_' + config.name;
     // config.sortie_name = '/' + sortie_name;
