@@ -80,7 +80,7 @@ function init() {
                 if (msw_mqtt_client != null) {
                     for (let i = 0; i < config.lib[idx].control.length; i++) {
                         let sub_container_name = config.lib[idx].control[i];
-                        let _topic = '/Mobius/' + config.gcs + '/Mission_Data/' + config.drone + '/' + sub_container_name;
+                        let _topic = '/Mobius/' + config.gcs + '/Mission_Data/msw_lte/' + sub_container_name;
                         msw_mqtt_client.subscribe(_topic);
                         msw_sub_mobius_topic.push(_topic);
                         console.log('[msw_mqtt] msw_sub_mobius_topic[' + i + ']: ' + _topic);
