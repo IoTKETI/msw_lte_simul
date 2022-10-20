@@ -295,7 +295,7 @@ function parseDataMission(topic, str_message) {
         ///////////////////////////////////////////////////////////////////////
 
         let topic_arr = topic.split('/');
-        let data_topic = '/Mobius/' + config.gcs + '/Mission_Data/' + config.drone + '/' + config.name + '/' + topic_arr[topic_arr.length - 1];
+        let data_topic = '/Mobius/' + config.gcs + '/Mission_Data/' + config.drone + '/msw_lte/' + topic_arr[topic_arr.length - 1];
         // msw_mqtt_client.publish(data_topic + '/' + sortie_name, str_message);
         msw_mqtt_client.publish(data_topic, str_message);
         // sh_man.crtci(data_topic + '?rcn=0', 0, str_message, null, function (rsc, res_body, parent, socket) {
