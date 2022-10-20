@@ -32,7 +32,7 @@ global.drone_info = '';
 let lte_data = db('./' + config.name + '_data' + '.json');
 
 try {
-    drone_info = JSON.parse(fs.readFileSync('../drone_info.json', 'utf8'));
+    drone_info = JSON.parse(fs.readFileSync('./drone_info.json', 'utf8'));
 
     config.directory_name = config.name + '_' + config.name;
     // config.sortie_name = '/' + sortie_name;
@@ -69,10 +69,7 @@ try {
 let msw_sub_mobius_topic = [];
 
 let msw_sub_fc_topic = [];
-// msw_sub_fc_topic.push('/Mobius/' + config.gcs + '/Drone_Data/' + config.drone + '/heartbeat');
-msw_sub_fc_topic.push('/Mobius/' + config.gcs + '/Drone_Data/' + config.drone + '/global_position_int');
-// msw_sub_fc_topic.push('/Mobius/' + config.gcs + '/Drone_Data/' + config.drone + '/attitude');
-// msw_sub_fc_topic.push('/Mobius/' + config.gcs + '/Drone_Data/' + config.drone + '/battery_status');
+msw_sub_fc_topic.push('/TELE/drone/gpi');
 
 let msw_sub_lib_topic = [];
 
@@ -291,8 +288,8 @@ function parseDataMission(topic, str_message) {
         // User define Code
         let obj_lib_data = JSON.parse(str_message);
 
-        if (fc.hasOwnProperty('global_position_int')) {
-            Object.assign(obj_lib_data, JSON.parse(JSON.stringify(fc['global_position_int'])));
+        if (fc.hasOwnProperty('gpi')) {
+            Object.assign(obj_lib_data, JSON.parse(JSON.stringify(fc['gpi'])));
         }
         str_message = JSON.stringify(obj_lib_data);
         ///////////////////////////////////////////////////////////////////////
@@ -301,13 +298,13 @@ function parseDataMission(topic, str_message) {
         let data_topic = '/Mobius/' + config.gcs + '/Mission_Data/' + config.drone + '/' + config.name + '/' + topic_arr[topic_arr.length - 1];
         // msw_mqtt_client.publish(data_topic + '/' + sortie_name, str_message);
         msw_mqtt_client.publish(data_topic, str_message);
-        sh_man.crtci(data_topic + '?rcn=0', 0, str_message, null, function (rsc, res_body, parent, socket) {
-            if (rsc === '2001') {
-                setTimeout(mon_local_db, 500, data_topic);
-            } else {
-                lte_data.insert(JSON.parse(str_message));
-            }
-        });
+        // sh_man.crtci(data_topic + '?rcn=0', 0, str_message, null, function (rsc, res_body, parent, socket) {
+        //     if (rsc === '2001') {
+        //         setTimeout(mon_local_db, 500, data_topic);
+        //     } else {
+        //         lte_data.insert(JSON.parse(str_message));
+        //     }
+        // });
     } catch (e) {
         console.log('[parseDataMission] data format of lib is not json');
     }
@@ -357,9 +354,9 @@ function gen_LTEData(topic, rsrp, rsrq, rssi) {
         band: 5,
         bandwidth: 10,
         cell_id: "34(0x22)",
-        rsrp: rsrp,
-        rssi: rssi,
-        rsrq: rsrq,
+        RSRP: rsrp,
+        RSSI: rssi,
+        RSRQ: rsrq,
         bler: 0,
         tx_power: 0,
         plmn: "450f06",
