@@ -69,7 +69,7 @@ try {
 let msw_sub_mobius_topic = [];
 
 let msw_sub_fc_topic = [];
-msw_sub_fc_topic.push('/TELE/drone/gpi');
+msw_sub_fc_topic.push('/TELE/drone/gpi' + '/' + drone_info.id);
 
 let msw_sub_lib_topic = [];
 
